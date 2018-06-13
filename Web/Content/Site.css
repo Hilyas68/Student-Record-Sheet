@@ -43,3 +43,7 @@ textarea {
     .navbar-inverse .navbar-brand:hover {
         color: #ff0000 !important;
     }
+
+.jumbotron {
+    background-color: #75caeb !important;
+}

@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Services;
 using System.Web.Mvc;
-using Web.Models;
 
 namespace Web.Controllers
 {
@@ -20,10 +19,18 @@ namespace Web.Controllers
             depteservice = new RecordSheetService<Department>();
         }
         // GET: Student
-        public ActionResult AddRecord()
+        public ActionResult AddRecord(int id = 0)
         {
-            ViewBagData();
-            return View();
+            if (id == 0)
+            {
+                ViewBagData();
+                return View(new Student());
+            }
+            else
+            {
+                return View(studentservice.GetSingle(id));
+            }
+
         }
 
         public ActionResult RecordList()
@@ -38,24 +45,32 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRecord(RecordViewModel std)
+        public ActionResult AddRecord(Student std)
         {
             ViewBagData();
 
-            if (ModelState.IsValid)
+            if (std.Id == 0)
             {
-                var student = new Student
-                {
-                    Name = std.Name,
-                    DepartmentId = std.DepartmentId,
-                    CourseId = std.CourseId,
-                    Gradeid = std.GradeId
-                };
+                //var student = new Student
+                //{
+                //    Name = std.Name,
+                //    DepartmentId = std.DepartmentId,
+                //    CourseId = std.CourseId,
+                //    Gradeid = std.Gradeid,
+                //};
 
-                studentservice.Add(student);
+                studentservice.Add(std);
+                return View();
             }
-            return View();
+            else
+            {
+                studentservice.Edit(std);
+                return View();
+            }
+
+
         }
+
 
         private void ViewBagData()
         {

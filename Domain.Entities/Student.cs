@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Student
     {
@@ -9,7 +7,6 @@ namespace Domain.Entities
         public virtual Department Department { get; set; }
 
         public int DepartmentId { get; set; }
-        [Required]
         public virtual Course Course { get; set; }
         public int CourseId { get; set; }
         public virtual Grade Grade { get; set; }
