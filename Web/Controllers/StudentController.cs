@@ -48,6 +48,7 @@ namespace Web.Controllers
         public ActionResult AddRecord(Student std)
         {
             ViewBagData();
+            if (!ModelState.IsValid) return View();
 
             if (std.Id == 0)
             {
@@ -60,12 +61,12 @@ namespace Web.Controllers
                 //};
 
                 studentservice.Add(std);
-                return View();
+                return RedirectToAction("RecordList", "Student");
             }
             else
             {
                 studentservice.Edit(std);
-                return View();
+                return RedirectToAction("RecordList", "Student");
             }
 
 
