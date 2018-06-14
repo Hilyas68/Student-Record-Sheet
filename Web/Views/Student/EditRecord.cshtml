@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "EditRecord";
+    var singleStudent = ViewBag.SingleStudent;
+}
+
+
+<h3>EditRecord</h3> <hr style="border-top: 1.5px solid #eeeeee;" />
+
+@using (Html.BeginForm("EditRecord", "Student", FormMethod.Post))
+{
+    <div class="form-group">
+        <label class="bold">Name</label>
+        <input name="name" value ="@singleStudent.Name" id="name" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="bold">Departments</label>
+        <select class="form-control" name="departmentId" id="departmentId" >
+            <option value="-1">---Select Deparment---</option>
+            @foreach (var dept in ViewBag.Depts)
+            {
+                <option value="@dept.Id" @(dept.Id == singleStudent.Department.Id ? "selected" : "")> @dept.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="bold">Courses</label>
+        <select class="form-control" name="courseId" id="courseId">
+            <option value="-1">---Select Course---</option>
+            @foreach (var course in ViewBag.Courses)
+            {
+                <option value="@course.Id" @(course.Id == singleStudent.Course.Id ? "selected" : "")>@course.Title</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="bold">Grade</label>
+        <select class="form-control" name="gradeId" id="gradeId">
+            <option value="-1">---Select Grade---</option>
+            @foreach (var grade in ViewBag.Grade)
+            {
+                <option value="@grade.Id" @(grade.Id == singleStudent.Gradeid ? "selected" : "")>@grade.Type</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}

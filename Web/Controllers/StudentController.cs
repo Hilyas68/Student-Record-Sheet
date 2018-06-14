@@ -19,19 +19,36 @@ namespace Web.Controllers
             depteservice = new RecordSheetService<Department>();
         }
         // GET: Student
-        public ActionResult AddRecord(int id = 0)
+        public ActionResult AddRecord()
         {
-            if (id == 0)
-            {
-                ViewBagData();
-                return View(new Student());
-            }
-            else
-            {
-                return View(studentservice.GetSingle(id));
-            }
-
+            ViewBagData();
+            return View();
         }
+
+        public ActionResult DeleteRecord(Student std)
+        {
+            studentservice.Delete(std);
+            return Json(new { success = true, message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult EditRecord(Student std)
+        {
+            ViewBagData();
+            ViewBag.SingleStudent = studentservice.GetSingle(std.Id);
+
+            return View(ViewBag.SingleStudent);
+        }
+
+        [HttpPost]
+        public ActionResult EditRecord(Student std, int id)
+        {
+            if (!ModelState.IsValid) return View();
+
+            studentservice.Edit(std);
+            return RedirectToAction("RecordList", "Student");
+        }
+
+
+
 
         public ActionResult RecordList()
         {
@@ -50,26 +67,8 @@ namespace Web.Controllers
             ViewBagData();
             if (!ModelState.IsValid) return View();
 
-            if (std.Id == 0)
-            {
-                //var student = new Student
-                //{
-                //    Name = std.Name,
-                //    DepartmentId = std.DepartmentId,
-                //    CourseId = std.CourseId,
-                //    Gradeid = std.Gradeid,
-                //};
-
-                studentservice.Add(std);
-                return RedirectToAction("RecordList", "Student");
-            }
-            else
-            {
-                studentservice.Edit(std);
-                return RedirectToAction("RecordList", "Student");
-            }
-
-
+            studentservice.Add(std);
+            return RedirectToAction("RecordList", "Student");
         }
 
 

@@ -22,6 +22,7 @@ namespace Infrastructure
 
         public void Delete(T entity)
         {
+            context.Set<T>().Attach(entity);
             context.Set<T>().Remove(entity);
             Save();
         }
@@ -29,6 +30,7 @@ namespace Infrastructure
         public void Edit(T entity)
         {
             context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            Save();
         }
 
         public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
@@ -48,7 +50,7 @@ namespace Infrastructure
 
         public void Save()
         {
-                context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

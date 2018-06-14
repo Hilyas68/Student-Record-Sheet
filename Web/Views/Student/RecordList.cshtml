@@ -41,7 +41,7 @@
                     { "data": "Grade.Type" },
                     {
                         "data": "Id", "render": function (data) {
-                            return "<a class ='btn btn-primary btn-sm' href = @Url.Action("AddRecord", "Student")/"+data+"') style = 'margin-left:5px'> <i class = 'fa fa-pencil' ></i> Edit </a>";
+                            return "<a class ='btn btn-primary btn-sm' href = '@Url.Action("EditRecord", "Student")/" + data + "') title='Edit'  style = 'margin-left:5px'> <i class = 'fa fa-pencil' ></i></a>  <a class ='btn btn-danger btn-sm'  onclick = Delete("+data+")  title='Delete'> <i class='fa fa-trash'></i> </a >";
                         },
                         "orderable": false,
                         "width" : "150px"
@@ -53,6 +53,23 @@
             });
         });
 
-       
+       function Delete(id) {
+            if (confirm('Are you sure you want to delete this Record?')) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteRecord", "Student")/' + id,
+                    success: function(data) {
+                        if (data.success) {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+                        }
+                    }
+                })
+            }
+        }
     </script>
 }
