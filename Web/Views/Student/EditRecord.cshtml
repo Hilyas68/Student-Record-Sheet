@@ -11,12 +11,12 @@
 {
     <div class="form-group">
         <label class="bold">Name</label>
-        <input name="name" value ="@singleStudent.Name" id="name" type="text" class="form-control" />
+        <input name="name" value="@singleStudent.Name" id="name" type="text" class="form-control" />
     </div>
 
     <div class="form-group">
         <label class="bold">Departments</label>
-        <select class="form-control" name="departmentId" id="departmentId" >
+        <select class="form-control" name="departmentId" id="departmentId">
             <option value="-1">---Select Deparment---</option>
             @foreach (var dept in ViewBag.Depts)
             {
@@ -48,3 +48,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 }
+
