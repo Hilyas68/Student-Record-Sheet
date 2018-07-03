@@ -44,9 +44,9 @@
     <Compile Include="RecordSheetService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\RecordSheet.Infrastructure.csproj">
-      <Project>{34c154e0-cfb4-48e0-892f-4b0509062a3a}</Project>
-      <Name>RecordSheet.Infrastructure</Name>
+    <ProjectReference Include="..\Domain.Interface\RecordSheetDomain.Interface.csproj">
+      <Project>{384c39fe-98b8-4f71-8127-2d7401bb0aec}</Project>
+      <Name>RecordSheetDomain.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Interfaces\RecordSheet.ServicesInterfaces.csproj">
       <Project>{319f6b72-5108-4623-bbd4-f5987948af82}</Project>

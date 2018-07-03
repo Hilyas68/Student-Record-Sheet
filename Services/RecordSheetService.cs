@@ -1,5 +1,4 @@
-﻿using Infrastructure;
-using Services.Interfaces;
+﻿using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,11 @@ namespace Services
 {
     public class RecordSheetService<T> : IServices<T> where T : class
     {
-        private readonly StudentRecordRepo<T> repo;
+        private readonly IRepository<T> repo;
 
-        public RecordSheetService()
+        public RecordSheetService(IRepository<T> repository)
         {
-            repo = new StudentRecordRepo<T>();
+            repo = repository;
         }
         public void Add(T entity)
         {

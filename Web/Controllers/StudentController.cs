@@ -1,22 +1,23 @@
 ﻿using Domain.Entities;
-using Services;
+using Services.Interfaces;
 using System.Web.Mvc;
 
 namespace Web.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly RecordSheetService<Student> studentservice;
-        private readonly RecordSheetService<Course> courseservice;
-        private readonly RecordSheetService<Grade> gradeservice;
-        private readonly RecordSheetService<Department> depteservice;
+        private readonly IServices<Student> studentservice;
+        private readonly IServices<Course> courseservice;
+        private readonly IServices<Grade> gradeservice;
+        private readonly IServices<Department> depteservice;
+        //IRepository<Student> repo = new StudentRecordRepo<Student>();
 
-        public StudentController()
+        public StudentController(IServices<Student> studentservice, IServices<Course> courseservice, IServices<Grade> gradeservice, IServices<Department> depteservice)
         {
-            studentservice = new RecordSheetService<Student>();
-            courseservice = new RecordSheetService<Course>();
-            gradeservice = new RecordSheetService<Grade>();
-            depteservice = new RecordSheetService<Department>();
+            this.studentservice = studentservice;
+            this.courseservice = courseservice;
+            this.gradeservice = gradeservice;
+            this.depteservice = depteservice;
         }
         // GET: Student
         public ActionResult AddRecord()
@@ -27,6 +28,7 @@ namespace Web.Controllers
 
         public ActionResult DeleteRecord(Student std)
         {
+
             studentservice.Delete(std);
             return Json(new { success = true, message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
         }
@@ -46,8 +48,6 @@ namespace Web.Controllers
             studentservice.Edit(std);
             return RedirectToAction("RecordList", "Student");
         }
-
-
 
 
         public ActionResult RecordList()

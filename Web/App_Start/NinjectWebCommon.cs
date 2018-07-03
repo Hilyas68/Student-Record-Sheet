@@ -1,12 +1,16 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Infrastructure.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Infrastructure.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Web.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Web.App_Start.NinjectWebCommon), "Stop")]
 
-namespace Infrastructure.App_Start
+namespace Web.App_Start
 {
+    using Infrastructure.Modules;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
+    using Ninject.Modules;
     using Ninject.Web.Common;
     using System;
+    using System.Collections.Generic;
+    using System.Web;
 
     public static class NinjectWebCommon
     {
@@ -40,7 +44,7 @@ namespace Infrastructure.App_Start
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                //kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
                 return kernel;
@@ -58,6 +62,13 @@ namespace Infrastructure.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            var modules = new List<INinjectModule>
+            {
+                new RepositoryModule(),
+                new ServiceModule(),
+            };
+
+            kernel.Load(modules);
         }
     }
 }

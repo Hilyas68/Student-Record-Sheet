@@ -14,9 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordSheet.Web", "Web\RecordSheet.Web.csproj", "{C920384C-3B4F-4251-8A94-0DB9942123A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{F77F6866-7191-4F7D-BD40-D7BF2B626EB8}"
-	ProjectSection(SolutionItems) = preProject
-		Web\Models\DummyData.cs = Web\Models\DummyData.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordSheetDomain.Interface", "Domain.Interface\RecordSheetDomain.Interface.csproj", "{384C39FE-98B8-4F71-8127-2D7401BB0AEC}"
 EndProject
